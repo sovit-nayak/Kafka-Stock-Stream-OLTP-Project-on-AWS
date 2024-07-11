@@ -8,16 +8,19 @@ This project demonstrates a basic setup for Apache Kafka, including producers an
 ## Prerequisites
 
 - Java 1.8.0
-- Apache Kafka 3.3.1
+- Apache Kafka 3.7.1
 - An EC2 instance (for deployment)
+- S3 bucket Database
+- AWS Glue for crawler
+- AWS Athena for Data Analysis
 
 ## Installation
 
 ### Step 1: Download and Extract Kafka
 
 ```bash
-wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
-tar -xvf kafka_2.12-3.3.1.tgz
+wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.7.1.tgz
+tar -xvf kafka_2.12-3.7.1.tgz
 ```
 
 ### Step 2: Install Java
@@ -40,7 +43,7 @@ java -version
 Navigate to the Kafka directory and start ZooKeeper:
 
 ```bash
-cd kafka_2.12-3.3.1
+cd kafka_2.12-3.7.1
 bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
@@ -50,7 +53,7 @@ Open a new terminal, SSH into your EC2 instance, and start the Kafka server:
 
 ```bash
 export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
-cd kafka_2.12-3.3.1
+cd kafka_2.12-3.7.1
 bin/kafka-server-start.sh config/server.properties
 ```
 
@@ -70,7 +73,7 @@ sudo nano config/server.properties
 Open a new terminal and create a topic named `demo_test`:
 
 ```bash
-cd kafka_2.12-3.3.1
+cd kafka_2.12-3.7.1
 bin/kafka-topics.sh --create --topic demo_test --bootstrap-server <PUBLIC_IP>:9092 --replication-factor 1 --partitions 1
 ```
 
@@ -87,7 +90,7 @@ bin/kafka-console-producer.sh --topic demo_test --bootstrap-server <PUBLIC_IP>:9
 Open a new terminal and start a Kafka consumer to read messages from the `demo_test` topic:
 
 ```bash
-cd kafka_2.12-3.3.1
+cd kafka_2.12-3.7.1
 bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server <PUBLIC_IP>:9092
 ```
 
